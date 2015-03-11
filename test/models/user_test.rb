@@ -8,8 +8,13 @@ class UserTest < ActiveSupport::TestCase
 
     assert_equal false, @user.avatar?
 
+    file_name = "#{Rails.root}/test/files/lion-30-x-30.jpg"
+
     # set avatar
-    @user.avatar = File.open("#{Rails.root}/test/files/lion-30-x-30.jpg")
+    File.open(file_name) do |file|
+      @user.avatar = file
+    end
+
     @user.save!
 
     assert_equal true, @user.avatar?
@@ -20,8 +25,11 @@ class UserTest < ActiveSupport::TestCase
 
     assert_equal false, @user.avatar?
 
-    # add another one
-    @user.avatar = File.open("#{Rails.root}/test/files/lion-2-30-x-30.jpg")
+    # add back again
+    File.open(file_name) do |file|
+      @user.avatar = file
+    end
+
     @user.save!
 
     assert_equal true, @user.avatar?

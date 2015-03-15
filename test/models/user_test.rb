@@ -26,7 +26,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal false, @user.avatar?
 
     # add back again
-    @user = User.find @user
 
     File.open(file_name) do |file|
       @user.avatar = file
